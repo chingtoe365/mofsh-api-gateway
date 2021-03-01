@@ -49,8 +49,6 @@ public class URLBuilerImpl implements URLBuilder {
     public HttpMethod getMethod(Actions action) {
 
         switch(action){
-            case DELETE_USER_CREDS:
-                return HttpMethod.DELETE;
 
             case UPDATE_USER:
                 return HttpMethod.PUT;
