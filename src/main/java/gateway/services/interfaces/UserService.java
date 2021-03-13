@@ -10,5 +10,5 @@ public interface UserService {
     public User getByUsername(String username) throws AuthenticationException;
     public User getById(String id) throws AuthenticationException;
     public User updateUser(User user);
-    
+    public boolean userHasSubscribedService(Integer serviceId, Integer userId);
 }

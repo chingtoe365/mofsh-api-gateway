@@ -46,6 +46,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean userHasSubscribedService(Integer serviceId, Integer userId) {
+        return false;
+    }
+
+    @Override
     public User getById(String id) throws AuthenticationException {
         return null;
     }

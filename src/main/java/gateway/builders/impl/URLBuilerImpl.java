@@ -42,7 +42,7 @@ public class URLBuilerImpl implements URLBuilder {
 
     /**
      * This method returns the HTTPMethod type of an action
-     * @param Action, the action to check
+     * @param action, the action to check
      * @return HttpMethod, the HttpMethod
      */
     @Override

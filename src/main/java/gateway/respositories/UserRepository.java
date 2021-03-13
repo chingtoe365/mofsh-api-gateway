@@ -1,6 +1,8 @@
 package gateway.respositories;
 
+import gateway.model.Service;
 import gateway.model.User;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
@@ -19,5 +21,6 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 
     List<User> findByEmail(String email);
 
+    List<Integer> findSubscribedServiceIdsForUser(Integer userId);
 
 }
