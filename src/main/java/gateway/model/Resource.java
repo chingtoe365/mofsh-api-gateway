@@ -1,23 +1,20 @@
 package gateway.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Map;
 
+@Entity
+@Table(name = "mofsh_data_cubes")
 public class Resource {
-    public Resource(){}
 
+    @Id
+    @Column(name = "id")
     private int resourceId;
-    private String resourceProvider;
-    private Map<String, String> resourceArguments;
 
-    public int getResourceId() {
-        return resourceId;
+    public Resource(int resourceId) {
+        this.resourceId = resourceId;
     }
-
-    @Override
-    public String toString(){
-        return "{id=" + resourceId
-                + ",provider=" + resourceProvider
-                + ", arguments=" + resourceArguments.toString();
-    }
-
 }

@@ -1,34 +1,84 @@
 package gateway.model;
 
+import javax.naming.Name;
+import javax.persistence.*;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
+@Entity
+@Table(name = "mofsh_users")
 public class User {
-    public User(){}
+    @Id
+    @Column(name = "uuid")
+    private UUID userId;
 
-    private Integer userId;
+    @Column(name = "username")
     private String username;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "organization")
     private String organization;
 
-    public String getUsername(){
+    public UUID getUserId() {
+        return userId;
+    }
+
+    public void setUserId(UUID userId) {
+        this.userId = userId;
+    }
+
+    public String getUsername() {
         return username;
-    }
-
-    public String getOrganization(){
-        return organization;
-    }
-
-    public List<Map<Integer, String>> getSubscribedResourceList(){
-        // TODO: implement this
-        return null;
     }
 
     public void setUsername(String username) {
         this.username = username;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getOrganization() {
+        return organization;
+    }
+
     public void setOrganization(String organization) {
         this.organization = organization;
     }
+
+    public User(){
+        this(UUID.randomUUID());
+    }
+
+    public User(UUID id) {
+        this(id, "", "", "");
+    }
+
+    public User(UUID id, String username, String email, String organization){
+        this.userId = id;
+        this.username = username;
+        this.email = email;
+        this.organization = organization;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", organization='" + organization + '\'' +
+                '}';
+    }
+
+
 }

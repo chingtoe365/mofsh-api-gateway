@@ -3,6 +3,7 @@ package gateway;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 //@EnableConfigurationProperties(UriConfiguration.class)
 //@EnableSwagger2
 @RestController
-@RequestMapping("/api/v1")
+//@RequestMapping("/api/v1")
+@ComponentScan(basePackages = "gateway")
 public class Application {
 
 	public static void main( String[] args ) {
@@ -32,10 +34,10 @@ public class Application {
 	 *
 	 * @return
 	 */
-	@GetMapping("/test")
-	public String test(){
-		return "Hello world";
-	}
+//	@GetMapping("/test")
+//	public String test(){
+//		return "Hello world";
+//	}
 
 	@Autowired
 	ObjectMapper mapper;

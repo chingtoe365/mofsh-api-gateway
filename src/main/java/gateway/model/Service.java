@@ -1,26 +1,19 @@
 package gateway.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Map;
 
+@Entity
+@Table(name = "mofsh_ai_services")
 public class Service {
-    public Service(){};
+    @Id
+    @Column(name = "id")
+    private Integer id;
 
-    private String servcieName;
-    private String serviceDescription;
-    private Map<String, String> serviceArguments;
-
-    public String getServcieName() {
-        return servcieName;
-    }
-
-    public String getServiceDescription(){
-        return serviceDescription;
-    }
-
-    @Override
-    public String toString(){
-        return "{serviceName=" + servcieName
-                + ",serviceDescription=" + serviceDescription
-                + ", serviceArguments=" + serviceArguments.toString();
+    public Service(Integer id) {
+        this.id = id;
     }
 }
