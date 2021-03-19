@@ -14,6 +14,8 @@ public class Resource {
     @Column(name = "id")
     private int resourceId;
 
+    public Resource() {}
+
     public Resource(int resourceId) {
         this.resourceId = resourceId;
     }
