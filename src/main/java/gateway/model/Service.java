@@ -13,6 +13,8 @@ public class Service {
     @Column(name = "id")
     private Integer id;
 
+    public Service(){}
+
     public Service(Integer id) {
         this.id = id;
     }
