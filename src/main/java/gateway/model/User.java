@@ -8,7 +8,11 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Entity
-@Table(name = "mofsh_users")
+@Table(name = "mofsh_users",
+    uniqueConstraints = {
+        @UniqueConstraint(columnNames = "username"),
+        @UniqueConstraint(columnNames = "email")
+    })
 public class User {
     @Id
     @Column(name = "uuid")
@@ -19,6 +23,9 @@ public class User {
 
     @Column(name = "email")
     private String email;
+
+    @Column(name = "password")
+    private String password;
 
     @Column(name = "organization")
     private String organization;
@@ -53,6 +60,14 @@ public class User {
 
     public void setOrganization(String organization) {
         this.organization = organization;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public User(){
