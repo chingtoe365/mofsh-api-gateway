@@ -15,7 +15,6 @@
         <version>2.1.5.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -60,7 +59,20 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
         </dependency>
-
+<!--        Spring Boot Security-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-rest</artifactId>
+        </dependency>
     </dependencies>
 
     <properties>
@@ -72,8 +84,14 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <jvmArguments>
+                        -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005
+                    </jvmArguments>
+                </configuration>
             </plugin>
         </plugins>
+
     </build>
 
 </project>
