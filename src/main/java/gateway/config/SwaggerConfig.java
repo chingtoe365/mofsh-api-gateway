@@ -12,7 +12,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
- * This class is the configuration file for Swagger library
+ * This class represents the configuration for Swagger
  * @author jintaolong@brookes.ac.uk
  * @created 19/03/2021
  * @updated 19/03/2021
