@@ -14,7 +14,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "mofsh_argument_types")
-public class ServiceArgumentType implements Serializable {
+public class AiServiceArgumentType implements Serializable {
     private static final long serialVersionUID = -4864645646545L;
 
     @Id
@@ -24,8 +24,8 @@ public class ServiceArgumentType implements Serializable {
     @Column(name = "argument_type")
     private String argumentType;
 
-    @OneToMany(mappedBy = "serviceArgumentType")
-    private Set<ServiceArgument> serviceArguments;
+    @OneToMany(mappedBy = "aiServiceArgumentType")
+    private Set<AiServiceArgument> aiServiceArguments;
 
     public int getArgumentTypeId() {
         return argumentTypeId;
@@ -46,8 +46,8 @@ public class ServiceArgumentType implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ServiceArgumentType)) return false;
-        ServiceArgumentType that = (ServiceArgumentType) o;
+        if (!(o instanceof AiServiceArgumentType)) return false;
+        AiServiceArgumentType that = (AiServiceArgumentType) o;
         return getArgumentTypeId() == that.getArgumentTypeId() &&
                 getArgumentType().equals(that.getArgumentType());
     }

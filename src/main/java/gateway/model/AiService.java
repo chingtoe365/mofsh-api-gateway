@@ -1,9 +1,7 @@
 package gateway.model;
 
-import javax.naming.Name;
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Map;
 import java.util.Set;
 
 /*
@@ -14,10 +12,11 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "mofsh_ai_services")
-public class Service implements Serializable {
+public class AiService implements Serializable {
     private static final long serialVersionId = -546454455456564L;
     @Id
     @Column(name = "id")
+    @GeneratedValue
     private Integer id;
     @Column(name = "ai_service_name")
     private String aiServiceName;
@@ -29,13 +28,20 @@ public class Service implements Serializable {
     private String method;
     @Column(name = "port")
     private int port;
-    @OneToMany(mappedBy = "service")
-    private Set<ServiceArgument> serviceArguments;
+    @OneToMany(mappedBy = "aiService")
+    private Set<AiServiceArgument> aiServiceArguments;
 
+    public Set<AiServiceArgument> getAiServiceArguments() {
+        return aiServiceArguments;
+    }
 
-    public Service(){}
+    public void setAiServiceArguments(Set<AiServiceArgument> aiServiceArguments) {
+        this.aiServiceArguments = aiServiceArguments;
+    }
 
-    public Service(Integer id) {
+    public AiService(){}
+
+    public AiService(Integer id) {
         this.id = id;
     }
 
@@ -95,7 +101,7 @@ public class Service implements Serializable {
                 ", endpoint='" + endpoint + '\'' +
                 ", method='" + method + '\'' +
                 ", port=" + port +
-                ", serviceArguments=" + serviceArguments +
+                ", serviceArguments=" + aiServiceArguments +
                 '}';
     }
 }

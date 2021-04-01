@@ -1,7 +1,10 @@
 package gateway.exceptions;
 
-/**
+/*
  * Generic base class for all exceptions related to authentication
+ * @author: jintaolong@brookes.ac.uk
+ * @created: 2021-03-26
+ * @updated: 2021-03-26
  */
 public class AuthenticationException extends Exception{
     private static final long serialVersionUID = -3795314616799563076L;

@@ -3,7 +3,10 @@ package gateway.model;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class RegistrationRequest implements Serializable {
+public class UserRegistrationRequest implements Serializable {
+
+    private static final long serialVersionUID = -898554051025L;
+
     private String username;
     private String email;
     private String organization;
@@ -45,8 +48,8 @@ public class RegistrationRequest implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof RegistrationRequest)) return false;
-        RegistrationRequest that = (RegistrationRequest) o;
+        if (!(o instanceof UserRegistrationRequest)) return false;
+        UserRegistrationRequest that = (UserRegistrationRequest) o;
         return username.equals(that.username) &&
                 email.equals(that.email) &&
                 Objects.equals(organization, that.organization);

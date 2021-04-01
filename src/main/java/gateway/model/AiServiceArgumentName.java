@@ -13,18 +13,19 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "mofsh_arguments")
-public class ServiceArgumentName implements Serializable {
+public class AiServiceArgumentName implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @Column(name = "id")
+    @GeneratedValue
     private int argumentId;
 
     @Column(name = "argument_name")
     private String argumentName;
 
-    @OneToMany(mappedBy = "serviceArgumentName")
-    private Set<ServiceArgument> serviceArguments;
+    @OneToMany(mappedBy = "aiServiceArgumentName")
+    private Set<AiServiceArgument> aiServiceArguments;
 
     public int getArgumentId() {
         return argumentId;
@@ -45,8 +46,8 @@ public class ServiceArgumentName implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ServiceArgumentName)) return false;
-        ServiceArgumentName that = (ServiceArgumentName) o;
+        if (!(o instanceof AiServiceArgumentName)) return false;
+        AiServiceArgumentName that = (AiServiceArgumentName) o;
         return getArgumentId() == that.getArgumentId() &&
                 getArgumentName().equals(that.getArgumentName());
     }

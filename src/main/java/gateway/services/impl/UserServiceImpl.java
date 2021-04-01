@@ -1,7 +1,7 @@
 package gateway.services.impl;
 
 import gateway.exceptions.AuthenticationException;
-import gateway.model.RegistrationRequest;
+import gateway.model.UserRegistrationRequest;
 import gateway.model.User;
 import gateway.respositories.UserRepository;
 import gateway.services.interfaces.UserService;
@@ -48,11 +48,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean isUserNameRegistered(String username) {
-        return users.findByUsername(username) != null;
+        Optional<User> foundUser = users.findByUsername(username);
+        return  foundUser.isPresent() ? true : false;
     }
 
     @Override
-    public User registerUser(RegistrationRequest body) throws AuthenticationException {
+    public User registerUser(UserRegistrationRequest body) throws AuthenticationException {
         if(isUserNameRegistered(body.getUsername())){
             throw new AuthenticationException("User already exists for this username");
         }

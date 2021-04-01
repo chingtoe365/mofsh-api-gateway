@@ -10,7 +10,7 @@ import java.util.Objects;
  * @created 24/03/2021
  * @updated 24/03/2021
  */
-public class ServiceRegistrationRequest implements Serializable {
+public class AiServiceRegistrationRequest implements Serializable {
     private static final long serialVersionUID = -4511513151561L;
 
     private String serviceName;
@@ -71,8 +71,8 @@ public class ServiceRegistrationRequest implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ServiceRegistrationRequest)) return false;
-        ServiceRegistrationRequest that = (ServiceRegistrationRequest) o;
+        if (!(o instanceof AiServiceRegistrationRequest)) return false;
+        AiServiceRegistrationRequest that = (AiServiceRegistrationRequest) o;
         return getServicePort() == that.getServicePort() &&
                 getServiceUrlEndpoint().equals(that.getServiceUrlEndpoint()) &&
                 getServiceRequestMethod().equals(that.getServiceRequestMethod()) &&

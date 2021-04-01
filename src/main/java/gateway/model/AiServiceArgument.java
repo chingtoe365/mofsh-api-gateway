@@ -11,24 +11,25 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "mofsh_fact_ai_services_arguments")
-public class ServiceArgument implements Serializable {
+public class AiServiceArgument implements Serializable {
     private static final long serialVersionUID = 8941561531454L;
 
     @Id
     @Column(name = "id")
+    @GeneratedValue
     private int factId;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_argument", nullable = false)
-    private ServiceArgumentName serviceArgumentName;
+    private AiServiceArgumentName aiServiceArgumentName;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_argument_type", nullable = false)
-    private ServiceArgumentType serviceArgumentType;
+    private AiServiceArgumentType aiServiceArgumentType;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_ai_service", nullable = false)
-    private Service service;
+    private AiService aiService;
 
     public int getFactId() {
         return factId;
@@ -38,4 +39,35 @@ public class ServiceArgument implements Serializable {
         this.factId = factId;
     }
 
+    public AiServiceArgumentName getAiServiceArgumentName() {
+        return aiServiceArgumentName;
+    }
+
+    public void setAiServiceArgumentName(AiServiceArgumentName aiServiceArgumentName) {
+        this.aiServiceArgumentName = aiServiceArgumentName;
+    }
+
+    public AiServiceArgumentType getAiServiceArgumentType() {
+        return aiServiceArgumentType;
+    }
+
+    public void setAiServiceArgumentType(AiServiceArgumentType aiServiceArgumentType) {
+        this.aiServiceArgumentType = aiServiceArgumentType;
+    }
+
+    public AiService getAiService() {
+        return aiService;
+    }
+
+    public void setAiService(AiService aiService) {
+        this.aiService = aiService;
+    }
+
+    @Override
+    public String toString() {
+        return "AiServiceArgument{" +
+                "aiServiceArgumentName=" + aiServiceArgumentName +
+                ", aiServiceArgumentType=" + aiServiceArgumentType +
+                '}';
+    }
 }
