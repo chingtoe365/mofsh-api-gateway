@@ -31,6 +31,16 @@ public class AiServiceArgument implements Serializable {
     @JoinColumn(name = "id_ai_service", nullable = false)
     private AiService aiService;
 
+    private AiServiceArgumentContent aiServiceArgumentContent;
+
+    public AiServiceArgumentContent getAiServiceArgumentContent() {
+        return aiServiceArgumentContent;
+    }
+
+    public void setAiServiceArgumentContent(AiServiceArgumentContent aiServiceArgumentContent) {
+        this.aiServiceArgumentContent = aiServiceArgumentContent;
+    }
+
     public int getFactId() {
         return factId;
     }

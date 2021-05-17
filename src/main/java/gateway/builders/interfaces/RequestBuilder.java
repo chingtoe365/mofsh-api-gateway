@@ -1,6 +1,10 @@
 package gateway.builders.interfaces;
 
 import gateway.model.AiServiceInput;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClient.RequestHeadersSpec;
+import org.springframework.web.reactive.function.client.WebClient.ResponseSpec;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -11,6 +15,6 @@ import java.net.HttpURLConnection;
  * @created 08/04/2021
  * @updated 08/04/2021
  */
-public interface RequestBuiler {
-    public HttpURLConnection build(AiServiceInput aiServiceInput) throws IOException;
+public interface RequestBuilder {
+    public RequestHeadersSpec build(AiServiceInput aiServiceInput) throws IOException, ClassNotFoundException;
 }

@@ -1,6 +1,9 @@
 package gateway.services.impl;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.util.JSONPObject;
+import gateway.builders.interfaces.RequestBuilder;
 import gateway.exceptions.RegistrationException;
 import gateway.model.*;
 import gateway.respositories.ServiceArgumentNameRepository;
@@ -9,10 +12,22 @@ import gateway.respositories.ServiceArgumentTypeRepository;
 import gateway.respositories.ServiceRepository;
 import gateway.services.interfaces.ConnectionService;
 import net.bytebuddy.implementation.bytecode.Throw;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.reactive.function.BodyInserters;
+import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClient.ResponseSpec;
+import org.springframework.web.reactive.function.client.WebClient.RequestHeadersSpec;
+import reactor.core.publisher.Mono;
 
 import javax.servlet.Registration;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -35,6 +50,9 @@ public class ConnectionServiceImpl implements ConnectionService {
 
     @Autowired
     ServiceArgumentTypeRepository serviceArgumentTypeRepository;
+
+    @Autowired
+    RequestBuilder requestBuilder;
 
     @Override
     public void registerAiService(AiServiceRegistrationRequest request) throws RegistrationException {
@@ -83,5 +101,15 @@ public class ConnectionServiceImpl implements ConnectionService {
     @Override
     public List<AiServiceArgument> findAllArgumentsByServiceId(Integer integer) {
         return null;
+    }
+
+    @Override
+    public String askAi(AiServiceInput aiServiceInput) throws IOException, ClassNotFoundException, JSONException {
+        String responseStr = "";
+        RequestHeadersSpec headersSpec = requestBuilder.build(aiServiceInput);
+        Mono<String> response = headersSpec
+                .retrieve().bodyToMono(String.class);
+        responseStr = response.block();
+        return responseStr;
     }
 }

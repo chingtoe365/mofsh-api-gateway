@@ -4,6 +4,7 @@ import gateway.builders.interfaces.URLBuilder;
 import gateway.utils.constants.GSURLConstants;
 import gateway.utils.enums.Actions;
 import org.springframework.http.HttpMethod;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ import java.util.List;
  * @created 2021-02-04
  * @updated 2021-02-04
  */
+@Service
 public class URLBuilerImpl implements URLBuilder {
 
     /**

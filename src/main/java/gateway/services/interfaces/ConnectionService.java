@@ -1,10 +1,12 @@
 package gateway.services.interfaces;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import gateway.exceptions.RegistrationException;
-import gateway.model.AiService;
-import gateway.model.AiServiceArgument;
-import gateway.model.AiServiceRegistrationRequest;
+import gateway.model.*;
+import org.json.JSONException;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,5 +20,5 @@ public interface ConnectionService {
     public void registerAiService(AiServiceRegistrationRequest request) throws RegistrationException;
     public Optional<AiService> findServiceById(Integer integer);
     public List<AiServiceArgument> findAllArgumentsByServiceId(Integer integer);
-
+    public String askAi(AiServiceInput serviceInput) throws IOException, ClassNotFoundException, JSONException;
 }
