@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
+ * A controller for testing
  * @author jintaolong@brookes.ac.uk
  * @created 18/03/2021
  * @updated 18/03/2021

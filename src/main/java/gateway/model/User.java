@@ -1,15 +1,17 @@
 package gateway.model;
 
+import org.hibernate.annotations.TypeDefs;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.naming.Name;
 import javax.persistence.*;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Table(name = "mofsh_users")
-public class User {
+public class User implements UserDetails {
+
     @Id
     @Column(name = "uuid")
     private UUID userId;
@@ -19,6 +21,9 @@ public class User {
 
     @Column(name = "email")
     private String email;
+
+    @Column(name = "password")
+    private String password;
 
     @Column(name = "organization")
     private String organization;
@@ -55,6 +60,14 @@ public class User {
         this.organization = organization;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public User(){
         this(UUID.randomUUID());
     }
@@ -80,5 +93,29 @@ public class User {
                 '}';
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
 
 }
