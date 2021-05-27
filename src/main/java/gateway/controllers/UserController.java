@@ -20,11 +20,14 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/users")
-public class UserController extends Controller {
+public class UserController extends Controller{
     @Autowired
     private UserServiceImpl userService;
-
+// define username first
     public UserController(){
+//        public String set_username(String username){  // set username
+//            return String.format(username);
+//        }
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
