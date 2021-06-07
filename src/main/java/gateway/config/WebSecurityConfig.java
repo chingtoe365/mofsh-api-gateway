@@ -48,7 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .and()
             .csrf().disable()
             // dont authenticate this particular request
-            .authorizeRequests().antMatchers("/authenticate/").permitAll()
+            .authorizeRequests().antMatchers("/authenticate/", "/users/register").permitAll()
             // preclude authentication for swagger page and some others
             .antMatchers("/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**")
             .permitAll()
@@ -76,10 +76,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-        auth.inMemoryAuthentication()
-                .withUser("user").password("{noop}password").roles("USER")
-                .and()
-                .withUser("admin").password("{noop}password").roles("ADMIN");
+//        auth.inMemoryAuthentication()
+//                .withUser("user").password("{noop}password").roles("USER")
+//                .and()
+//                .withUser("admin").password("{noop}password").roles("ADMIN");
+        auth.userDetailsService(jwtUserDetailsService).passwordEncoder(passwordEncoder());
 
     }
     @Bean
