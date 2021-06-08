@@ -5,7 +5,11 @@ import com.fasterxml.jackson.databind.util.JSONPObject;
 import gateway.exceptions.RegistrationException;
 import gateway.model.*;
 import gateway.respositories.ServiceRepository;
+import gateway.respositories.UserRepository;
+import gateway.respositories.UserServiceRelationMapRepository;
+import gateway.security.jwt.JwtTokenUtil;
 import gateway.services.interfaces.ConnectionService;
+import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +17,11 @@ import org.springframework.security.access.prepost.PrePostAnnotationSecurityMeta
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.swing.text.html.Option;
+import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("aiservice/")
@@ -25,7 +33,19 @@ public class AiServiceController extends Controller {
     ServiceRepository aiServiceRepo;
 
     @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    UserServiceRelationMapRepository userServiceRelationMapRepository;
+
+    @Autowired
     ConnectionService connectionService;
+
+    @Autowired
+    JwtTokenUtil jwtTokenUtil;
+
+    @Autowired
+    private HttpServletRequest request;
 
     @RequestMapping(value = "/{aiServiceID}", method = RequestMethod.GET)
     public ResponseEntity<String> findById(@PathVariable("aiServiceID") int aiServiceId){
@@ -77,14 +97,47 @@ public class AiServiceController extends Controller {
         ResponseEntity<String> response = null;
         HttpStatus st = HttpStatus.INTERNAL_SERVER_ERROR;
         String str = "";
-        if(aiServiceInput.getServiceId() == null){
-            aiServiceInput.setServiceId(aiServiceId);
-        }
+        // check user permisson to consume service
+        String jwtToken = request.getHeader("Authorization").substring(7);
         try{
-            str = connectionService.askAi(aiServiceInput);
-            st = HttpStatus.OK;
-        }catch (Throwable e){
-            Throwable err = e;
+            String username = jwtTokenUtil.getUsernameFromToken(jwtToken);
+            Optional<User> user = userRepository.findByUsername(username);
+            if(user.isPresent()){
+                UUID userId = user.get().getUserId();
+                Optional<List<Integer>> availableServicesForUser = userServiceRelationMapRepository.findServicesByUserId(userId);
+                if(availableServicesForUser.isPresent()){
+                    List<Integer> availableServices = availableServicesForUser.get();
+                    if(availableServices.contains(aiServiceId)){
+                        if(aiServiceInput.getServiceId() == null){
+                            aiServiceInput.setServiceId(aiServiceId);
+                        }
+                        try{
+                            str = connectionService.askAi(aiServiceInput);
+                            st = HttpStatus.OK;
+                        }catch (Throwable e){
+                            Throwable err = e;
+                            st = HttpStatus.BAD_REQUEST;
+                            str = "Failed connecting to service";
+                        }
+                    }
+                    else {
+                        st = HttpStatus.UNAUTHORIZED;
+                        str = "User not authorised to consume service with ID: " + aiServiceId
+                            + ", please contact provider to subscribe first";
+                    }
+                }
+                else {
+                    st = HttpStatus.UNAUTHORIZED;
+                    str = "User not authorised to consume service with ID: " + aiServiceId
+                            + ", please contact provider to subscribe first";
+                }
+            }else{
+//                System.out.println("Username does not exist");
+                st = HttpStatus.UNAUTHORIZED;
+                str = "Username does not exist";
+            }
+        } catch (ExpiredJwtException e){
+            System.out.println("JWT Token has expired");
         }
         response = new ResponseEntity<String>(str, st);
         return response;

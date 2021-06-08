@@ -18,7 +18,7 @@ import java.io.IOException;
 
 /**
  * Called for any incoming requests and checks if the request has a valid JWT token
- * @author jintaolong@brookes.ac.uk
+ * @author
  * @created 02/06/2021
  * @updated 02/06/2021
  */
