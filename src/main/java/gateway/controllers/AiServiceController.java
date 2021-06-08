@@ -72,7 +72,7 @@ public class AiServiceController extends Controller {
         return response;
     }
 
-    @RequestMapping(value = "connectService/", method = RequestMethod.POST)
+    @RequestMapping(value = "connectService/{aiServiceId}", method = RequestMethod.POST)
     public ResponseEntity<String> connectToAiService(@PathVariable("aiServiceId")int aiServiceId, @RequestBody(required = true)AiServiceInput aiServiceInput){
         ResponseEntity<String> response = null;
         HttpStatus st = HttpStatus.INTERNAL_SERVER_ERROR;
