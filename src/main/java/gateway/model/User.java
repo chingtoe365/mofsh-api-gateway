@@ -28,6 +28,17 @@ public class User implements UserDetails {
     @Column(name = "organization")
     private String organization;
 
+    @OneToMany(mappedBy = "user")
+    private Set<UserServiceRelationMap> userServiceRelationMaps;
+
+    public Set<UserServiceRelationMap> getUserServiceRelationMaps() {
+        return userServiceRelationMaps;
+    }
+
+    public void setUserServiceRelationMaps(Set<UserServiceRelationMap> userServiceRelationMaps) {
+        this.userServiceRelationMaps = userServiceRelationMaps;
+    }
+
     public UUID getUserId() {
         return userId;
     }

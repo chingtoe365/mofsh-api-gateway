@@ -11,7 +11,7 @@ import java.io.IOException;
 
 /**
  * This class rejects every unauthenticated request and send error code 401
- * @author jintaolong@brookes.ac.uk
+ * @author
  * @created 07/06/2021
  * @updated 07/06/2021
  */

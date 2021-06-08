@@ -13,23 +13,32 @@ import java.util.Set;
 @Entity
 @Table(name = "mofsh_ai_services")
 public class AiService implements Serializable {
-    private static final long serialVersionId = -546454455456564L;
+    private static final long serialVersionId = -54646564L;
     @Id
     @Column(name = "id")
     @GeneratedValue
     private Integer id;
+
     @Column(name = "ai_service_name")
     private String aiServiceName;
+
     @Column(name = "ai_service_description")
     private String aiServiceDescription;
+
     @Column(name = "endpoint")
     private String endpoint;
+
     @Column(name = "request_method")
     private String method;
+
     @Column(name = "port")
     private int port;
+
     @OneToMany(mappedBy = "aiService")
     private Set<AiServiceArgument> aiServiceArguments;
+
+    @OneToMany(mappedBy = "aiService")
+    private Set<UserServiceRelationMap> userServiceRelationMaps;
 
     public Set<AiServiceArgument> getAiServiceArguments() {
         return aiServiceArguments;
@@ -91,6 +100,14 @@ public class AiService implements Serializable {
 
     public void setPort(int port) {
         this.port = port;
+    }
+
+    public Set<UserServiceRelationMap> getUserServiceRelationMaps() {
+        return userServiceRelationMaps;
+    }
+
+    public void setUserServiceRelationMaps(Set<UserServiceRelationMap> userServiceRelationMaps) {
+        this.userServiceRelationMaps = userServiceRelationMaps;
     }
 
     @Override

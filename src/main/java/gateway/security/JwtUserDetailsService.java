@@ -3,11 +3,11 @@ package gateway.security;
 import gateway.model.User;
 import gateway.respositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -19,7 +19,7 @@ import java.util.Optional;
  * @updated 02/06/2021
  */
 @Service
-public class JwtUserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
+public class JwtUserDetailsService implements UserDetailsService {
         @Autowired
         private UserRepository userRepository;
 
