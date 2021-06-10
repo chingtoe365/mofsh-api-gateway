@@ -66,6 +66,7 @@ public class RequestBuilderImpl implements RequestBuilder {
                         inputArguments
                                 .get(argumentKey)
                 ).toString();
+                // TODO: safety URLencode content
                 argmentStr += "\""+argumentKey+"\":\""+argumentContent+"\"";
             }
             argmentStr += "}";

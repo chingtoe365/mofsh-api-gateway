@@ -18,7 +18,17 @@ public class AiServiceRegistrationRequest implements Serializable {
     private String serviceUrlEndpoint;
     private String serviceRequestMethod;
     private int servicePort;
+    private String serviceAPIKey;
+
     private Map<String, String> serviceArgumentDictionary;
+
+    public String getServiceAPIKey() {
+        return serviceAPIKey;
+    }
+
+    public void setServiceAPIKey(String serviceAPIKey) {
+        this.serviceAPIKey = serviceAPIKey;
+    }
 
     public String getServiceName() {
         return serviceName;

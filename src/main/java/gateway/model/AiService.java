@@ -34,6 +34,9 @@ public class AiService implements Serializable {
     @Column(name = "port")
     private int port;
 
+    @Column(name = "api_key")
+    private String apiKey;
+
     @OneToMany(mappedBy = "aiService")
     private Set<AiServiceArgument> aiServiceArguments;
 
@@ -46,6 +49,14 @@ public class AiService implements Serializable {
 
     public void setAiServiceArguments(Set<AiServiceArgument> aiServiceArguments) {
         this.aiServiceArguments = aiServiceArguments;
+    }
+
+    public String getApiKey() {
+        return apiKey;
+    }
+
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
     }
 
     public AiService(){}

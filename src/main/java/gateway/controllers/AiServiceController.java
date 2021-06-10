@@ -69,7 +69,17 @@ public class AiServiceController extends Controller {
         Optional<AiService> service = connectionService.findServiceById(aiServiceId);
         if (service.isPresent()){
             st = HttpStatus.OK;
-            str = "Service{" + service + "}";
+            str = "{\nService Name: "+service.get().getAiServiceName()
+                + ", \nService Description: "+service.get().getAiServiceDescription()
+                + ", \nService URL: "+service.get().getEndpoint()
+                + ", \nService Request Method: "+service.get().getMethod()
+                + ", \nRequired Arguments: {\n";
+            for (AiServiceArgument argument: service.get().getAiServiceArguments()){
+                str += "\""+argument.getAiServiceArgumentName().getArgumentName()
+                        +"\": "+argument.getAiServiceArgumentType().getArgumentType()
+                        + "\n";
+            }
+            str += "}\n}";
         }
 //        List<ServiceArgument> serviceArguments = connectionService.findAllArgumentsByServiceId(aiServiceId);
         response = new ResponseEntity<String >(str, st);
