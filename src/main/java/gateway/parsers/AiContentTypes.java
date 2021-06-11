@@ -16,10 +16,11 @@ public class AiContentTypes {
     public static Object cast(String refType, Object content) throws ClassNotFoundException {
         switch (refType){
             case "text":
+            case "authorization":
                 type = String.class;
                 break;
             case "number":
-                type = Number   .class;
+                type = Number.class;
                 break;
         }
         if(type.isInstance(content)){

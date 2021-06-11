@@ -63,6 +63,7 @@ public class ConnectionServiceImpl implements ConnectionService {
         aiService.setEndpoint(request.getServiceUrlEndpoint());
         aiService.setMethod(request.getServiceRequestMethod());
         aiService.setPort(request.getServicePort());
+        aiService.setApiKey(request.getServiceAPIKey());
         AiService savedService = serviceRepository.save(aiService);
         for(Map.Entry<String, String> entry: request.getServiceArgumentDictionary().entrySet()){
             String argumentNameText = entry.getKey();

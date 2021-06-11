@@ -34,6 +34,12 @@ public class AiService implements Serializable {
     @Column(name = "port")
     private int port;
 
+    @Column(name = "api_key")
+    private String apiKey;
+
+    @Column(name = "auth_in_header")
+    private boolean authenticationInHeader;
+
     @OneToMany(mappedBy = "aiService")
     private Set<AiServiceArgument> aiServiceArguments;
 
@@ -44,8 +50,24 @@ public class AiService implements Serializable {
         return aiServiceArguments;
     }
 
+    public boolean isAuthenticationInHeader() {
+        return authenticationInHeader;
+    }
+
+    public void setAuthenticationInHeader(boolean authenticationInHeader) {
+        this.authenticationInHeader = authenticationInHeader;
+    }
+
     public void setAiServiceArguments(Set<AiServiceArgument> aiServiceArguments) {
         this.aiServiceArguments = aiServiceArguments;
+    }
+
+    public String getApiKey() {
+        return apiKey;
+    }
+
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
     }
 
     public AiService(){}

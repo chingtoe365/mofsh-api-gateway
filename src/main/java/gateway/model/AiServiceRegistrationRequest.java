@@ -18,7 +18,28 @@ public class AiServiceRegistrationRequest implements Serializable {
     private String serviceUrlEndpoint;
     private String serviceRequestMethod;
     private int servicePort;
+    private String serviceAPIKey;
+    private boolean authorizationInHeader;
+
+    // TODO: perhaps should refactor authorization arguments and not mixing it with other arguments
+    // should give user hints on providing authorization key/value as input
     private Map<String, String> serviceArgumentDictionary;
+
+    public boolean isAuthorizationInHeader() {
+        return authorizationInHeader;
+    }
+
+    public void setAuthorizationInHeader(boolean authorizationInHeader) {
+        this.authorizationInHeader = authorizationInHeader;
+    }
+
+    public String getServiceAPIKey() {
+        return serviceAPIKey;
+    }
+
+    public void setServiceAPIKey(String serviceAPIKey) {
+        this.serviceAPIKey = serviceAPIKey;
+    }
 
     public String getServiceName() {
         return serviceName;
