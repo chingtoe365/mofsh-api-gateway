@@ -50,6 +50,8 @@ public class RequestBuilderImpl implements RequestBuilder {
         int serivceId = aiServiceInput.getServiceId();
         Map<String, Object> inputArguments = aiServiceInput.getArguments();
         Optional<AiService> aiService = connectionService.findServiceById(serivceId);
+        String authorizationKey = "Authorization";
+        String authorizationValue = "dummyauthapikey";
         if (aiService.isPresent()) {
             String url = aiService.get().getEndpoint();
             String method = aiService.get().getMethod();
@@ -57,25 +59,40 @@ public class RequestBuilderImpl implements RequestBuilder {
             // TODO: set timeout
             WebClient client = WebClient.create(url);
             String argmentStr = "{";
+            int counter = 0;
             for(AiServiceArgument argument : expectedArguments) {
+                counter += 1;
                 AiServiceArgumentType expectedArgumentType = argument.getAiServiceArgumentType();
                 String argumentKey = argument.getAiServiceArgumentName().getArgumentName();
-                String argumentContent = AiContentTypes.cast(argument
-                                .getAiServiceArgumentType()
-                                .getArgumentType(),
-                        inputArguments
-                                .get(argumentKey)
-                ).toString();
+                String argumentType = argument.getAiServiceArgumentType().getArgumentType();
+                String argumentContent = "";
+                if(argumentType.equals("authorization")){
+                    authorizationKey = argument.getAiServiceArgumentName().getArgumentName();
+                    authorizationValue = aiService.get().getApiKey();
+                    argumentContent = aiService.get().getApiKey();
+                }else{
+                    argumentContent = AiContentTypes.cast(argumentType, inputArguments.get(argumentKey)).toString();
+                }
+
                 // TODO: safety URLencode content
-                argmentStr += "\""+argumentKey+"\":\""+argumentContent+"\"";
+                String commaPlaceHolder = counter < 2 ? "" : ",";
+                argmentStr += commaPlaceHolder+"\""+argumentKey+"\":\""+argumentContent+"\"";
             }
             argmentStr += "}";
-            headersSpec = client
-                    .method(HttpMethods.fromString(method))
-                    .body(BodyInserters.fromPublisher(Mono.just(argmentStr), String.class))
-                    .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                    .accept(MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML);
-
+            if (aiService.get().isAuthenticationInHeader()){
+                headersSpec = client
+                        .method(HttpMethods.fromString(method))
+                        .body(BodyInserters.fromPublisher(Mono.just(argmentStr), String.class))
+                        .header(authorizationKey, authorizationValue)
+                        .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                        .accept(MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML);
+            }else{
+                headersSpec = client
+                        .method(HttpMethods.fromString(method))
+                        .body(BodyInserters.fromPublisher(Mono.just(argmentStr), String.class))
+                        .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                        .accept(MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML);
+            }
         } else {
             throw new NotFoundException("AI Service not found");
         }

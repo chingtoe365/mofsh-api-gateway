@@ -126,7 +126,7 @@ public class AiServiceController extends Controller {
                             st = HttpStatus.OK;
                         }catch (Throwable e){
                             Throwable err = e;
-                            st = HttpStatus.BAD_REQUEST;
+                             st = HttpStatus.BAD_REQUEST;
                             str = "Failed connecting to service";
                         }
                     }
