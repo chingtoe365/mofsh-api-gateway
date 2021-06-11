@@ -26,5 +26,8 @@ hs_err_pid*
 .idea/
 
 # Local build targets
-target/
+target/*
 build/*
+
+# iml files
+*.iml
